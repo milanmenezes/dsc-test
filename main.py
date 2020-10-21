@@ -1,5 +1,5 @@
 from flask import Flask,render_template,abort,jsonify,request,redirect,url_for
-
+import os
 from model import db,save_db
 
 app =Flask(__name__)
@@ -8,6 +8,10 @@ app =Flask(__name__)
 def welcome():
     return render_template("welcome.html",
                            cards=db)
+
+@app.route("/environ")
+def environ():
+    return "Hello "+os.environ.get("Name","Stranger")
 
 @app.route("/card/<int:index>")
 def card_view(index):
